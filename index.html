@@ -56,8 +56,8 @@
   .tab-btn:hover{border-color:var(--red);}
   .tab-btn.active{color:#fff; background:var(--black); border-color:var(--black);}
 
-  .screen-section{display:none;}
-  .screen-section.active{display:block;}
+  .screen-section{height:0; overflow:hidden; visibility:hidden;}
+  .screen-section.active{height:auto; overflow:visible; visibility:visible;}
 
   .screen-hero{position:relative; overflow:hidden; background:#000;}
   .screen-hero video, .screen-hero img{width:100%; max-height:560px; object-fit:cover;}
@@ -182,7 +182,7 @@
 
 <section class="intro">
   <span class="eyebrow">Our LED Screens</span>
-  <h1></h1>
+  <h1>Every screen. One link.</h1>
   <p>We provide a lucrative avenue for businesses to showcase their brands on our giant LED screens across major events worldwide.</p>
 </section>
 
@@ -394,16 +394,11 @@
     sections.forEach(s => s.classList.toggle('active', s.id === target));
     const active = document.getElementById(target);
     if (active) {
-      // iOS ne charge aucune vidéo (hero OU galerie) tant que son conteneur
-      // est en display:none : on force le rechargement de toutes les vidéos
-      // de la section qu'on vient d'afficher.
-      active.querySelectorAll('video').forEach(v => {
-        v.load();
-        if (v.hasAttribute('autoplay')) {
-          const p = v.play();
-          if (p !== undefined) p.catch(()=>{});
-        }
-      });
+      // Les vidéos préchargent déjà en arrière-plan depuis le chargement de
+      // la page (voir CSS : plus de display:none). On relance juste la
+      // lecture du hero au cas où le navigateur l'aurait mis en pause.
+      const v = active.querySelector('.screen-hero video');
+      if (v) { const p = v.play(); if (p !== undefined) p.catch(()=>{}); }
     }
   }
 
