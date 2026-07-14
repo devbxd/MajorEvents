@@ -194,7 +194,7 @@
 
 <section id="palais" class="screen-section active">
   <div class="screen-hero">
-    <video autoplay muted loop playsinline>
+    <video autoplay muted loop playsinline preload="auto">
       <source src="https://majoreventsmedia.com/wp-content/uploads/2026/02/Palais-FAST-1280x533-1.mp4" type="video/mp4">
     </video>
   </div>
@@ -291,7 +291,7 @@
 
 <section id="splendid" class="screen-section">
   <div class="screen-hero">
-    <video autoplay muted loop playsinline>
+    <video autoplay muted loop playsinline preload="auto">
       <source src="https://majoreventsmedia.com/wp-content/uploads/2024/04/Video-FAST.mp4" type="video/mp4">
     </video>
   </div>
@@ -310,7 +310,7 @@
 
 <section id="panoramic" class="screen-section">
   <div class="screen-hero">
-    <video autoplay muted loop playsinline>
+    <video autoplay muted loop playsinline preload="auto">
       <source src="https://majoreventsmedia.com/wp-content/uploads/2023/10/major-events-media-double-panoramic-screen-v2.mp4" type="video/mp4">
     </video>
   </div>
@@ -367,12 +367,36 @@
 </footer>
 
 <script>
+  // Force autoplay des vidéos hero sur mobile (Safari/Chrome bloquent parfois
+  // l'autoplay automatique tant qu'il n'y a pas eu d'interaction ou que la
+  // vidéo n'est pas assez chargée).
+  function forcePlayHeroVideos(){
+    document.querySelectorAll('.screen-hero video').forEach(function(v){
+      var p = v.play();
+      if (p !== undefined) { p.catch(function(){ /* sera relancé au premier tap */ }); }
+    });
+  }
+  document.addEventListener('DOMContentLoaded', forcePlayHeroVideos);
+  window.addEventListener('load', forcePlayHeroVideos);
+  // Filet de sécurité : si le navigateur a quand même bloqué l'autoplay,
+  // le premier tap/clic n'importe où sur la page relance la lecture.
+  ['touchstart','click'].forEach(function(evt){
+    document.addEventListener(evt, forcePlayHeroVideos, {once:true, passive:true});
+  });
+</script>
+
+<script>
   const tabs = document.querySelectorAll('.tab-btn');
   const sections = document.querySelectorAll('.screen-section');
 
   function activate(target){
     tabs.forEach(t => t.classList.toggle('active', t.dataset.target === target));
     sections.forEach(s => s.classList.toggle('active', s.id === target));
+    const active = document.getElementById(target);
+    if (active) {
+      const v = active.querySelector('.screen-hero video');
+      if (v) { const p = v.play(); if (p !== undefined) p.catch(()=>{}); }
+    }
   }
 
   tabs.forEach(tab => {
