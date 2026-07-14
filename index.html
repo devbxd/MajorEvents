@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Our LED Screens - MAJOR EVENTS MEDIA</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#ececec;
+    --white:#ffffff;
+    --red:#c1272d;
+    --black:#111111;
+    --gray:#5a5a5a;
+    --line:#dcdcdc;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--black);
+    font-family:'Poppins', Arial, sans-serif;
+  }
+  a{color:inherit; text-decoration:none;}
+  img{max-width:100%; display:block;}
+  video{max-width:100%; display:block;}
+  h1,h2,h3{font-family:'Playfair Display', Georgia, serif; margin:0;}
+
+  header{
+    display:flex; align-items:center; justify-content:space-between;
+    padding:20px 50px; background:var(--bg); flex-wrap:wrap; gap:16px;
+  }
+  header .logo-img{height:60px; width:auto;}
+  nav ul{list-style:none; display:flex; gap:32px; margin:0; padding:0; font-size:14px; font-weight:500;}
+  nav ul li a{color:var(--black); transition:color .2s;}
+  nav ul li a:hover{color:var(--red);}
+  .book-btn{
+    background:#000; color:#fff; padding:14px 26px; font-size:14px; font-weight:600;
+    border-radius:30px; white-space:nowrap; transition:opacity .2s;
+  }
+  .book-btn:hover{opacity:.8;}
+
+  .intro{text-align:center; padding:50px 20px 30px;}
+  .intro .eyebrow{color:var(--red); font-size:13px; letter-spacing:2px; text-transform:uppercase; font-weight:600;}
+  .intro h1{font-size:clamp(30px,4vw,44px); margin:14px 0 10px; font-weight:700;}
+  .intro p{color:var(--gray); max-width:600px; margin:0 auto; font-size:15px; line-height:1.6;}
+
+  .tabs{display:flex; justify-content:center; gap:10px; padding:10px 20px 30px; flex-wrap:wrap;}
+  .tab-btn{
+    padding:14px 28px; font-size:13px; letter-spacing:1px; text-transform:uppercase; font-weight:600;
+    color:var(--black); background:var(--white); border:2px solid var(--line); cursor:pointer;
+    border-radius:30px; transition:all .2s; font-family:'Poppins',sans-serif;
+  }
+  .tab-btn:hover{border-color:var(--red);}
+  .tab-btn.active{color:#fff; background:var(--black); border-color:var(--black);}
+
+  .screen-section{display:none;}
+  .screen-section.active{display:block;}
+
+  .screen-hero{position:relative; overflow:hidden; background:#000;}
+  .screen-hero video, .screen-hero img{width:100%; max-height:560px; object-fit:cover;}
+
+  .info-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:0; max-width:1300px; margin:0 auto;}
+  .info-col{padding:40px 35px;}
+  .info-col img{width:100%; height:230px; object-fit:cover; margin-bottom:24px;}
+  .info-col .eyebrow{color:var(--red); font-size:12px; letter-spacing:1.5px; text-transform:uppercase; font-weight:600;}
+  .info-col h2{font-size:22px; margin:10px 0 18px; font-weight:700; font-family:'Poppins',sans-serif; text-transform:uppercase; color:var(--black);}
+  .info-col ul{color:var(--gray); font-size:14.5px; line-height:1.75; padding-left:18px; margin:0;}
+  .info-col ul strong{color:var(--black); font-weight:700;}
+
+  .specs{text-align:center; padding:60px 30px 20px;}
+  .specs .eyebrow{color:var(--red); font-size:13px; letter-spacing:2px; text-transform:uppercase; font-weight:600;}
+  .specs h2{font-family:'Playfair Display',serif; font-size:32px; margin:12px 0 40px; font-weight:600; font-style:italic; color:var(--black);}
+  .specs-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:0; max-width:1100px; margin:0 auto;}
+  .spec-card{background:var(--white); border:1px solid var(--line); padding:32px 30px; text-align:left; display:flex; gap:18px; align-items:flex-start;}
+  .spec-card .icon{font-size:26px; line-height:1;}
+  .spec-card .label{font-size:14px; font-weight:700; text-transform:uppercase; letter-spacing:.5px; margin-bottom:8px; color:var(--black);}
+  .spec-card .value{font-size:14px; color:var(--gray); line-height:1.5;}
+
+  .action{text-align:center; padding:60px 30px 40px;}
+  .action .eyebrow{color:var(--red); font-size:13px; letter-spacing:2px; text-transform:uppercase; font-weight:600;}
+  .action h2{font-family:'Playfair Display',serif; font-size:34px; margin:12px 0 40px; font-weight:700; color:var(--black); text-transform:uppercase;}
+  .main-video{max-width:1100px; margin:0 auto;}
+  .main-video video{width:100%; max-height:600px; object-fit:cover; border-radius:2px;}
+
+  .booking-section{text-align:center; padding:70px 30px 60px; max-width:900px; margin:0 auto;}
+  .booking-section h2{font-family:'Playfair Display',serif; font-size:30px; font-weight:700; text-transform:uppercase; margin-bottom:16px;}
+  .booking-section > p{color:var(--gray); font-size:15px; margin-bottom:36px;}
+  .booking-form{display:grid; grid-template-columns:1fr 1fr; gap:22px; text-align:left;}
+  .booking-form label{display:block; font-size:12px; color:var(--gray); text-transform:uppercase; letter-spacing:.5px; margin-bottom:8px;}
+  .booking-form input, .booking-form select, .booking-form textarea{
+    width:100%; padding:13px 14px; border:1px solid var(--line); border-radius:4px;
+    font-family:'Poppins',sans-serif; font-size:14px; background:#fff; color:var(--black);
+  }
+  .booking-form .full{grid-column:1/-1;}
+  .booking-form button{
+    justify-self:center; padding:15px 38px; background:#000; color:#fff; border:none;
+    border-radius:30px; font-size:13px; letter-spacing:1px; text-transform:uppercase; font-weight:600; cursor:pointer;
+  }
+  @media (max-width:700px){
+    .booking-form{grid-template-columns:1fr;}
+  }
+
+  .gallery-grid{display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:4px; max-width:1300px; margin:0 auto;}
+  .gallery-grid img, .gallery-grid video{width:100%; height:260px; object-fit:cover;}
+
+  .simple-gallery{
+    display:grid; grid-template-columns:1fr 1fr; gap:6px;
+  }
+  .simple-gallery img, .simple-gallery video{width:100%; height:100%; object-fit:cover; display:block;}
+  @media (max-width:700px){
+    .simple-gallery{grid-template-columns:1fr;}
+  }
+
+  .cta-inline{margin:60px auto; text-align:center; padding:50px 30px; max-width:700px;}
+  .cta-inline h3{font-size:26px; margin:0 0 14px; font-weight:700; font-family:'Poppins',sans-serif;}
+  .cta-inline p{color:var(--gray); margin:0 0 24px;}
+  .cta-inline a{display:inline-block; background:#000; color:#fff; padding:16px 34px; border-radius:30px; font-size:13px; letter-spacing:1px; text-transform:uppercase; font-weight:600;}
+
+  footer{padding:60px 40px 0; background:var(--bg); margin-top:40px;}
+  .footer-grid{
+    display:grid; grid-template-columns:1.6fr 1fr 1fr 1.6fr; gap:40px;
+    max-width:1300px; margin:0 auto 40px; align-items:start;
+  }
+  .footer-grid .logo-img{height:56px; width:auto; margin-bottom:16px;}
+  .footer-grid > div > p{color:var(--gray); font-size:14px; line-height:1.6; margin:0;}
+  .footer-links h4{font-size:17px; text-transform:none; color:var(--black); margin:0 0 16px; font-weight:700; font-family:'Poppins',sans-serif;}
+  .footer-links ul{list-style:none; padding:0; margin:0;}
+  .footer-links ul li{margin-bottom:8px;}
+  .footer-links ul li a{color:var(--gray); font-size:14px;}
+  .footer-links ul li a:hover{color:var(--red);}
+  .contact-info h4{font-size:17px; color:var(--black); margin:0 0 16px; font-weight:700; font-family:'Poppins',sans-serif;}
+  .contact-info p{color:var(--gray); font-size:14px; margin:0 0 4px;}
+  .newsletter h4{font-size:17px; font-weight:700; font-family:'Poppins',sans-serif; margin:0 0 12px; color:var(--black);}
+  .newsletter p{color:var(--gray); font-size:14px; margin:0 0 16px;}
+  .newsletter-form{display:flex; gap:10px; align-items:center;}
+  .newsletter-form input{
+    flex:1; padding:10px 2px; background:transparent; border:none; border-bottom:1px solid var(--line);
+    color:var(--black); font-size:14px;
+  }
+  .newsletter-form input::placeholder{color:#999;}
+  .newsletter-form button{
+    padding:9px 20px; background:transparent; color:var(--black); border:1px solid var(--black);
+    border-radius:30px; font-size:13px; cursor:pointer; font-weight:600; white-space:nowrap;
+  }
+  .footer-bottom{
+    display:flex; justify-content:space-between; align-items:center;
+    padding:20px 0; border-top:1px solid var(--line); color:var(--gray); font-size:13px;
+    max-width:1300px; margin:0 auto;
+  }
+  .footer-bottom a{color:var(--gray);}
+
+  @media (max-width:900px){
+    .info-grid{grid-template-columns:1fr;}
+    .specs-grid{grid-template-columns:1fr;}
+    .footer-grid{grid-template-columns:1fr 1fr;}
+  }
+  @media (max-width:600px){
+    header{padding:16px 20px;}
+    nav ul{gap:16px; font-size:12px;}
+    .footer-grid{grid-template-columns:1fr;}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <a href="https://majoreventsmedia.com"><img class="logo-img" src="https://majoreventsmedia.com/wp-content/uploads/2020/05/MEM-LOGO.jpg" alt="Major Events Media"></a>
+  <nav>
+    <ul>
+      <li><a href="https://majoreventsmedia.com/">HOME</a></li>
+      <li><a href="https://majoreventsmedia.com/about-us/">ABOUT US</a></li>
+      <li><a href="https://majoreventsmedia.com/references/">REFERENCES</a></li>
+      <li><a href="https://majoreventsmedia.com/portfolio/">PORTFOLIO</a></li>
+      <li><a href="https://majoreventsmedia.com/contact/">CONTACT</a></li>
+    </ul>
+  </nav>
+  <a class="book-btn" href="https://calendly.com/mimokabbara/major-events-media?month=2025-08">Book A Meeting</a>
+</header>
+
+<section class="intro">
+  <span class="eyebrow">Our LED Screens</span>
+  <h1>Every screen. One link.</h1>
+  <p>We provide a lucrative avenue for businesses to showcase their brands on our giant LED screens across major events worldwide.</p>
+</section>
+
+<div class="tabs">
+  <button class="tab-btn active" data-target="palais">Palais des Festivals</button>
+  <button class="tab-btn" data-target="splendid">Splendid Hotel</button>
+  <button class="tab-btn" data-target="panoramic">Panoramic</button>
+</div>
+
+<section id="palais" class="screen-section active">
+  <div class="screen-hero">
+    <video autoplay muted loop playsinline>
+      <source src="https://majoreventsmedia.com/wp-content/uploads/2026/02/Palais-FAST-1280x533-1.mp4" type="video/mp4">
+    </video>
+  </div>
+
+  <div class="info-grid">
+    <div class="info-col">
+      <img src="https://majoreventsmedia.com/wp-content/uploads/2022/12/3122141241.png" alt="Palais des Festivals">
+      <span class="eyebrow">Cannes</span>
+      <h2>Palais des Festivals Screen</h2>
+      <ul>
+        <li>The screen is a permanent installation mounted on the facade of the Palais des Festivals. Major Events Media holds the <strong>exclusive marketing rights</strong> for this screen during all events in Cannes.</li>
+      </ul>
+    </div>
+    <div class="info-col">
+      <img src="https://majoreventsmedia.com/wp-content/uploads/2026/02/PALAIS-IMAGE-3.webp" alt="Why LED screens">
+      <span class="eyebrow">Why LED Screens</span>
+      <h2>Why Advertise On The Screens</h2>
+      <ul>
+        <li>Unmatched <strong>exposure</strong> on the Croisette <strong>during peak event traffic.</strong></li>
+        <li>Near-total reach: your message is <strong>seen by</strong> almost <strong>every attendee.</strong></li>
+        <li>A premium format to deliver <strong>powerful visuals</strong> and strong brand storytelling.</li>
+        <li><strong>Full flexibility</strong> to spotlight a key launch, product, or campaign during the event.</li>
+        <li>Position your brand alongside industry leaders, <strong>strengthening credibility and perception.</strong></li>
+      </ul>
+    </div>
+    <div class="info-col">
+      <img src="https://majoreventsmedia.com/wp-content/uploads/2021/12/3-1.jpg" alt="Dynamic visibility">
+      <span class="eyebrow">Dynamic Visibility, Day And Night</span>
+      <h2>Advantages Of LED Screens</h2>
+      <ul>
+        <li><strong>Fully animated</strong> content for maximum visual impact</li>
+        <li><strong>Extremely bright</strong>, ensuring excellent visibility day and night</li>
+        <li>Highly eye-catching, naturally <strong>drawing attention</strong> in busy environments</li>
+        <li><strong>Limited number of advertisers per screen</strong>, reducing clutter and increasing recall</li>
+        <li>A <strong>powerful marketing tool</strong> to enhance brand presence and awareness</li>
+        <li><strong>Ability to alternate</strong> between multiple <strong>videos</strong> within a rotation</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="specs">
+    <span class="eyebrow">Technical Details</span>
+    <h2>Screen Specifications</h2>
+    <div class="specs-grid">
+      <div class="spec-card"><span class="icon">&#9633;</span><div><div class="label">Screen Size</div><div class="value">15 SQM<br>4.6 x 3.4 m</div></div></div>
+      <div class="spec-card"><span class="icon">&#9645;</span><div><div class="label">Resolution</div><div class="value">1920 x 1445 Pixels</div></div></div>
+      <div class="spec-card"><span class="icon">&#9654;</span><div><div class="label">Formats</div><div class="value">MP4, MOV<br>Video Formats</div></div></div>
+      <div class="spec-card"><span class="icon">&#9719;</span><div><div class="label">Spot Duration</div><div class="value">15 Seconds<br>Per Rotation</div></div></div>
+      <div class="spec-card"><span class="icon">&#8635;</span><div><div class="label">Rotation</div><div class="value">3-6 Min<br>Frequency</div></div></div>
+      <div class="spec-card"><span class="icon">&#9636;</span><div><div class="label">Operating Hours</div><div class="value">10 am - 1 am<br>15-17 Hrs/Day</div></div></div>
+    </div>
+  </div>
+
+  <div class="action">
+    <span class="eyebrow">See It In Action</span>
+    <h2>The Screen Experience</h2>
+    <div class="main-video">
+      <video controls muted><source src="https://majoreventsmedia.com/wp-content/uploads/2024/04/v2_palais-screen_-cannes_france_major-events-media_glen-Moray-copy.mp4" type="video/mp4"></video>
+    </div>
+  </div>
+
+  <div class="gallery-grid" style="margin-top:40px;">
+    <img src="https://majoreventsmedia.com/wp-content/uploads/2024/04/p6_major-events-media_palais-screen_mipim-1024x576.webp" alt="Palais screen">
+    <img src="https://majoreventsmedia.com/wp-content/uploads/2024/04/p9_major-events-media_cannes_palais_screen-1024x576.webp" alt="Palais screen">
+    <video controls muted><source src="https://majoreventsmedia.com/wp-content/uploads/2024/04/VIDEO-FAST-v1-fast_major-events-media_cannes.mp4" type="video/mp4"></video>
+    <video controls muted><source src="https://majoreventsmedia.com/wp-content/uploads/2024/04/VIDEO-FAST-v2-fast_mipim_major-events-media_cannes.mp4" type="video/mp4"></video>
+    <video controls muted><source src="https://majoreventsmedia.com/wp-content/uploads/2024/04/v8_palais-screen_cannes_major-events-media_spots.mp4" type="video/mp4"></video>
+    <img src="https://majoreventsmedia.com/wp-content/uploads/2024/04/screenshot_map_palais_led-screen_cannes-1024x576.webp" alt="Palais screen location map">
+  </div>
+
+  <div class="booking-section">
+    <h2>Schedule A Meeting</h2>
+    <p>Fill out your details below with the service that you need, date and preferred hour and we'll get back to you to book an appointment.</p>
+    <form class="booking-form" onsubmit="return false;">
+      <div><label>Your Name</label><input type="text" placeholder="Your Name"></div>
+      <div><label>Your Phone</label><input type="tel" placeholder="Your phone"></div>
+      <div class="full"><label>Your Email *</label><input type="email" required placeholder="Your Email"></div>
+      <div>
+        <label>Select Service</label>
+        <select>
+          <option>LED ADVERTISING</option>
+          <option>SCREEN RENTAL</option>
+          <option>SPONSORSHIP</option>
+        </select>
+      </div>
+      <div><label>Your City</label><input type="text" placeholder="City"></div>
+      <div><label>Select A Date</label><input type="date"></div>
+      <div><label>Select Paris Time Zone</label><input type="time"></div>
+      <div class="full"><label>A Note To MAJOR EVENTS MEDIA</label><textarea rows="4" placeholder="Write a Message"></textarea></div>
+      <button type="submit" class="full">Schedule Now</button>
+    </form>
+  </div>
+</section>
+
+<section id="splendid" class="screen-section">
+  <div class="screen-hero">
+    <video autoplay muted loop playsinline>
+      <source src="https://majoreventsmedia.com/wp-content/uploads/2024/04/Video-FAST.mp4" type="video/mp4">
+    </video>
+  </div>
+
+  <div class="simple-gallery">
+    <img src="https://majoreventsmedia.com/wp-content/uploads/2024/04/v8_major-events-media_Splendid-Hotel_cannes_mipim_panoramic-screen_p6-1024x576.jpeg" alt="Splendid screen">
+    <video controls muted><source src="https://majoreventsmedia.com/wp-content/uploads/2024/04/v5_major-events-media_Splendid-Hotel_cannes_panoramic-screen_v3.mp4" type="video/mp4"></video>
+    <img src="https://majoreventsmedia.com/wp-content/uploads/2024/04/p4_major-events-media_Splendid-Hotel_cannes_panoramic-screen-1-1024x576.jpeg" alt="Splendid screen">
+    <video controls muted><source src="https://majoreventsmedia.com/wp-content/uploads/2024/04/v4_major-events-media_Splendid-Hotel_cannes_panoramic-screen_v2.mp4" type="video/mp4"></video>
+    <img src="https://majoreventsmedia.com/wp-content/uploads/2024/04/MAP-4_splendid-screen_majoreventsmedia-1024x576.jpeg" alt="Splendid technical / location">
+    <img src="https://majoreventsmedia.com/wp-content/uploads/2024/04/MAP-3_splendid-scree_cannes-1024x576.jpeg" alt="Splendid screen annotated">
+    <img src="https://majoreventsmedia.com/wp-content/uploads/2024/04/MAP-2_splendid-scree_cannes-1024x576.jpeg" alt="Splendid location map">
+    <img src="https://majoreventsmedia.com/wp-content/uploads/2024/04/MAP-1_splendid-scree_cannes-1024x576.jpeg" alt="Splendid location map">
+  </div>
+</section>
+
+<section id="panoramic" class="screen-section">
+  <div class="screen-hero">
+    <video autoplay muted loop playsinline>
+      <source src="https://majoreventsmedia.com/wp-content/uploads/2023/10/major-events-media-double-panoramic-screen-v2.mp4" type="video/mp4">
+    </video>
+  </div>
+
+  <div class="simple-gallery">
+    <video controls muted><source src="https://majoreventsmedia.com/wp-content/uploads/2023/10/major-events-media-double-panoramic-screen-v1.mp4" type="video/mp4"></video>
+    <video controls muted><source src="https://majoreventsmedia.com/wp-content/uploads/2023/10/major-events-media-double-panoramic-screen-v3.mp4" type="video/mp4"></video>
+    <video controls muted><source src="https://majoreventsmedia.com/wp-content/uploads/2023/10/major-events-media-double-panoramic-screen-v4.mp4" type="video/mp4"></video>
+    <video controls muted><source src="https://majoreventsmedia.com/wp-content/uploads/2023/10/major-events-media-double-panoramic-screen-v5.mp4" type="video/mp4"></video>
+    <video controls muted><source src="https://majoreventsmedia.com/wp-content/uploads/2023/10/major-events-media-double-panoramic-screen-v6.mp4" type="video/mp4"></video>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-grid">
+    <div>
+      <a href="https://majoreventsmedia.com"><img class="logo-img" src="https://majoreventsmedia.com/wp-content/uploads/2020/05/MEM-LOGO.jpg" alt="Major Events Media"></a>
+      <p>We provide a lucrative avenue for businesses to showcase their brands on our giant LED screens.</p>
+    </div>
+
+    <div class="footer-links">
+      <h4>Quick Links</h4>
+      <ul>
+        <li><a href="https://majoreventsmedia.com/">Home</a></li>
+        <li><a href="https://majoreventsmedia.com/about-us/">About Us</a></li>
+        <li><a href="https://majoreventsmedia.com/references/">References</a></li>
+        <li><a href="https://majoreventsmedia.com/portfolio/">Portfolio</a></li>
+        <li><a href="https://majoreventsmedia.com/contact/">Contact</a></li>
+      </ul>
+    </div>
+
+    <div class="contact-info">
+      <h4>Contact Info</h4>
+      <p>925 De Maisonneuve</p>
+      <p>West Suite 263</p>
+      <p>Montreal, QC, Canada</p>
+      <p>Mon-Fri 9am-6pm</p>
+    </div>
+
+    <div class="newsletter">
+      <h4>Join Our Newsletter</h4>
+      <p>Sign up for our newsletter to enjoy free marketing tips, inspirations, and more.</p>
+      <div class="newsletter-form">
+        <input type="email" placeholder="Email">
+        <button type="button">Sign Me Up</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer-bottom">
+    <span>© 2025. MEM All Rights Reserved.</span>
+    <a href="https://www.linkedin.com/company/majoreventsmedia/" aria-label="LinkedIn">in</a>
+  </div>
+</footer>
+
+<script>
+  const tabs = document.querySelectorAll('.tab-btn');
+  const sections = document.querySelectorAll('.screen-section');
+
+  function activate(target){
+    tabs.forEach(t => t.classList.toggle('active', t.dataset.target === target));
+    sections.forEach(s => s.classList.toggle('active', s.id === target));
+  }
+
+  tabs.forEach(tab => {
+    tab.addEventListener('click', () => {
+      activate(tab.dataset.target);
+      history.replaceState(null, '', '#' + tab.dataset.target);
+      document.querySelector('.tabs').scrollIntoView({behavior:'smooth', block:'start'});
+    });
+  });
+
+  window.addEventListener('DOMContentLoaded', () => {
+    const hash = window.location.hash.replace('#','');
+    if (hash && document.getElementById(hash)) activate(hash);
+  });
+</script>
+
+</body>
+</html>
